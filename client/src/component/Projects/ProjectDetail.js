@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-import ProjectDetailCard from "./ProjectDetailCard"
+import ProjectDetailCard from "./ProjectDetailCard";
 
 export default class ProjectDetail extends Component {
   constructor(props) {
@@ -31,17 +31,43 @@ export default class ProjectDetail extends Component {
   render() {
     const projectContent = this.state.projectDetails;
     const { id } = this.props.match.params;
+    // console.log(this.state.projectDetails.actions[0]);
 
-    // console.log(this.state.projectDetails);
-
-    return (
-      <div className="projectContainer">
-        <div className="projectDetail">
-          <Link to={`/api/projects/${id}/actions`}>
-            <ProjectDetailCard project={projectContent} />
-          </Link>
+    if (this.state.projectDetails.actions !== undefined) {
+      console.log(this.state.projectDetails.actions[0]);
+      return (
+        <div className="projectName">
+          <h1>Project: </h1>
+          <div>Name: {projectContent.name}</div>
+          <div className="projectDetailList">
+            <div>Description: {projectContent.description}</div>
+            <div>Completed: {projectContent.completed ? "Yes" : "No"}</div>
+            <div>
+              Actions:
+              <div>
+                <ul>
+                  {projectContent.actions.map(eachAction => (
+                    <Link
+                      key={eachAction.id}
+                      to={`/api/projects/${projectContent.id}/actions/${
+                        eachAction.id
+                      }/`}
+                    >
+                      <h3>Action Description: {eachAction.description}</h3>
+                      <h3>Action Notes: {eachAction.notes}</h3>
+                      <h3>
+                        Action completed: {eachAction.completed ? "Yes" : "No"}
+                      </h3>
+                    </Link>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return null;
+    }
   }
 }

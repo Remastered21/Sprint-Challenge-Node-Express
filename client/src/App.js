@@ -17,7 +17,10 @@ class App extends Component {
         </header>
         <Route exact path="/" component={Home} />
         <Route exact path="/api/projects" component={ProjectList} />
-        <Route path="/api/projects/:id" component={ProjectDetail} />
+        <Route
+          path="/api/projects/:id"
+          render={props => <ProjectDetail {...props} />}
+        />
       </div>
     );
   }
