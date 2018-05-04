@@ -6,6 +6,7 @@ import { Route } from "react-router-dom";
 
 import Home from "./component/Home";
 import ProjectList from "./component/Projects/ProjectList";
+import ProjectDetail from "./component/Projects/ProjectDetail";
 
 class App extends Component {
   render() {
@@ -13,10 +14,10 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
         </header>
         <Route exact path="/" component={Home} />
         <Route path="/api/projects" component={ProjectList} />
+        <Route path="/api/projects/:id" component={ProjectDetail} />
       </div>
     );
   }
