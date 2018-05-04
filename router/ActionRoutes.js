@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
       res.json(actions);
     })
     .catch(err => {
-      res.status(500).json({ error: err });
+      res.status(500).json({ error: "Cannot retrieve list of actions" });
     });
 });
 
@@ -41,7 +41,7 @@ router.post("/", (req, res) => {
       res.status(201).json(response);
     })
     .catch(err => {
-      res.status(500).json({ newAction });
+      res.status(500).json({ error: err });
     })
     .catch(err => {
       console.log(err);
@@ -51,19 +51,24 @@ router.post("/", (req, res) => {
 router.delete("/:id", (req, res) => {
   const { id } = req.params;
 
-  db.get(id).then(response => {
-    let deletedAct = { ...response };
-    db
-      .remove(id)
-      .then(response => {
-        res.status(200).json(deletedAct);
-      })
-      .catch(err => {
-        res.status(500).json({
-          error: err
+  db
+    .get(id)
+    .then(response => {
+      let deletedAct = { ...response };
+      db
+        .remove(id)
+        .then(response => {
+          res.status(200).json(deletedAct);
+        })
+        .catch(err => {
+          res.status(500).json({
+            error: err
+          });
         });
-      });
-  });
+    })
+    .catch(err => {
+      res.status(500).json({ error: "Action does not exist" });
+    });
 });
 
 router.put("/:id", (req, res) => {

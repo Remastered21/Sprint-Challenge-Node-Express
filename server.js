@@ -14,6 +14,13 @@ function logger(req, res, next) {
   };
 }
 
+function errorHandler(err, req, res, next) {
+  if (err) {
+    res.status(500).json({ error: "something bad happened" });
+  }
+  next();
+}
+
 // middlware
 server.use(logger("loading..."));
 server.use(helmet());
@@ -21,11 +28,11 @@ server.use(express.json());
 server.use(cors());
 
 // route handlers
-server.use('/api/projects', projectRoutes)
-server.use('/api/actions', actionRoutes)
+server.use("/api/projects", projectRoutes);
+server.use("/api/actions", actionRoutes);
 
-server.get('/', (req, res) => {
-  res.send('server is actually running.')
-})
+server.get("/", (req, res) => {
+  res.send("server is actually running.");
+});
 
-server.listen(5000, () => console.log(`\n== API is running on port 5000 ==\n`))
+server.listen(5000, () => console.log(`\n== API is running on port 5000 ==\n`));
