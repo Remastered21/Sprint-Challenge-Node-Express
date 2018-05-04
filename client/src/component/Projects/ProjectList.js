@@ -30,7 +30,7 @@ export default class ProjectList extends Component {
         <h1>Projects Available:</h1>
         <div className="projectList">
           {this.state.projects.map(eachProject => (
-            <Link key={eachProject.id} to={`/api/project/${eachProject.id}`}>
+            <Link key={eachProject.id} to={`/api/projects/${eachProject.id}`}>
               <ProjectCard project={eachProject} />
             </Link>
           ))}
