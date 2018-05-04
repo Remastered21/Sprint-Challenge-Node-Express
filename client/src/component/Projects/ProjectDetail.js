@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-import ProjAction from "./ActionsList";
+import ProjectDetailCard from "./ProjectDetailCard"
 
 export default class ProjectDetail extends Component {
   constructor(props) {
@@ -30,33 +30,16 @@ export default class ProjectDetail extends Component {
 
   render() {
     const projectContent = this.state.projectDetails;
-    console.log( this.state.projectDetails);
-
-
     const { id } = this.props.match.params;
 
+    // console.log(this.state.projectDetails);
+
     return (
-      <div className="projectName">
-        <h1>Project: </h1>
-        <h3>Name: {projectContent.name}</h3>
-        <div className="projectDetailList">
-          <h3>Description: {projectContent.description}</h3>
-          <h3>Completed: {projectContent.completed ? "Yes" : "No"}</h3>
-          <h3>
-            Actions:
-            <div>
-              <ul>
-                {/* { this.state.projectDetails.actions.map(eachAction => (
-                  <Link
-                    key={eachAction.id}
-                    to={`/api/projects/${id}/${eachAction.id}/`}
-                  >
-                    <ProjAction projAct={eachAction} />
-                  </Link>
-                ))} */}
-              </ul>
-            </div>
-          </h3>
+      <div className="projectContainer">
+        <div className="projectDetail">
+          <Link to={`/api/projects/${id}/actions`}>
+            <ProjectDetailCard project={projectContent} />
+          </Link>
         </div>
       </div>
     );
