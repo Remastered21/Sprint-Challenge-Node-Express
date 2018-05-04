@@ -7,3 +7,14 @@
   margin: auto;
   margin-top: 10px;
 }
+
+.ActionCard {
+  border: 2px solid black;
+  width: 40%;
+  margin: auto;
+  margin-top: 10px;
+}
+
+ul {
+  padding: 0;
+}
