@@ -1,7 +1,8 @@
-const express = require('express');
-const router = express.Router();
+const express = require("express");
 
-const db = require('../data/helpers/actionModel')
+const db = require("../data/helpers/actionModel");
+
+const router = express.Router();
 
 router.get("/", (req, res) => {
   db
@@ -32,14 +33,18 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-  const newAction = req.body;
+  let newAction = req.body;
+
   db
     .insert(newAction)
     .then(response => {
-      res.status(201).json(response, newAction);
+      res.status(201).json(response);
     })
     .catch(err => {
-      res.status(500).json({ error: "Could not save new Action to database" });
+      res.status(500).json({ newAction });
+    })
+    .catch(err => {
+      console.log(err);
     });
 });
 

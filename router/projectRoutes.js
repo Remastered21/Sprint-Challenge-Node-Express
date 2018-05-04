@@ -1,7 +1,8 @@
 const express = require("express");
-const router = express.Router();
 
 const db = require("../data/helpers/projectModel");
+
+const router = express.Router();
 
 router.get("/", (req, res) => {
   db
@@ -19,9 +20,9 @@ router.get("/:id", (req, res) => {
 
   db
     .get(id)
-    .then(projects => {
-      if (projects.length !== 0) {
-        res.json(projects);
+    .then(foundProject => {
+      if (foundProject.length !== 0) {
+        res.json(foundProject);
       } else {
         res.status(404).json({ message: "Project does not exist." });
       }
@@ -36,23 +37,25 @@ router.get("/:id/actions", (req, res) => {
 
   db
     .getProjectActions(id)
-    .then(projects => {
-      if (projects.length !== 0) {
-        res.json(projects);
+    .then(projectAct => {
+      if (projectAct.length !== 0) {
+        res.json(projectAct);
       } else {
-        res.status(404).json({ message: "Project does not exist." });
+        res.status(404).json({ message: "Project actions do not exist." });
       }
     })
     .catch(err => {
       res.status(500).json({ error: err });
     });
 });
+
 router.post("/", (req, res) => {
   const newProject = req.body;
+
   db
     .insert(newProject)
     .then(response => {
-      res.status(201).json(response, newProject);
+      res.status(201).json(response);
     })
     .catch(err => {
       res.status(500).json({ error: "Could not save new project to database" });

@@ -14,6 +14,13 @@ function logger(req, res, next) {
   };
 }
 
+// middlware
+server.use(logger("loading..."));
+server.use(helmet());
+server.use(express.json());
+server.use(cors());
+
+// route handlers
 server.use('/api/projects', projectRoutes)
 server.use('/api/actions', actionRoutes)
 
