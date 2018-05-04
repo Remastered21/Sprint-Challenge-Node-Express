@@ -38,7 +38,7 @@ router.get("/:id/actions", (req, res) => {
     .getProjectActions(id)
     .then(projects => {
       if (projects.length !== 0) {
-        res.json(projects[0]);
+        res.json(projects);
       } else {
         res.status(404).json({ message: "Project does not exist." });
       }
