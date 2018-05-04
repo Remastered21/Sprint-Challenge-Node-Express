@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+import ProjAction from "./ActionsList";
 
 export default class ProjectDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      projectDetails: [],
-      DoNotShowAction: true
+      projectDetails: []
     };
   }
 
@@ -29,8 +29,12 @@ export default class ProjectDetail extends Component {
   };
 
   render() {
-    console.log(this.state);
     const projectContent = this.state.projectDetails;
+    console.log( this.state.projectDetails);
+
+
+    const { id } = this.props.match.params;
+
     return (
       <div className="projectName">
         <h1>Project: </h1>
@@ -39,19 +43,19 @@ export default class ProjectDetail extends Component {
           <h3>Description: {projectContent.description}</h3>
           <h3>Completed: {projectContent.completed ? "Yes" : "No"}</h3>
           <h3>
-            Actions:{" "}
-            {this.state.DoNotShowAction ? null : (
-              <div>
-                {projectContent.actions.map(eachAction => (
-                  // <Link
-                  //   key={eachAction.id}
-                  //   to={`/api/projects/:id/${EachAction.id}/`}
-                  // >
-                    {/* <ProjectCard project={eachProject} /> */}
-                  // </Link>
-                ))}{" "}
-              </div>
-            )}
+            Actions:
+            <div>
+              <ul>
+                {/* { this.state.projectDetails.actions.map(eachAction => (
+                  <Link
+                    key={eachAction.id}
+                    to={`/api/projects/${id}/${eachAction.id}/`}
+                  >
+                    <ProjAction projAct={eachAction} />
+                  </Link>
+                ))} */}
+              </ul>
+            </div>
           </h3>
         </div>
       </div>

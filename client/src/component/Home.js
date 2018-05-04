@@ -11,10 +11,6 @@ const Home = () => {
         <Link to="/api/projects" component={ProjectList}>
           <button>Click here to see the projects</button>
         </Link>
-
-        <Link to="/api/actions" component={ProjectList}>
-          <button>Click here to see the actions in progress</button>
-        </Link>
       </div>
     </div>
   );
